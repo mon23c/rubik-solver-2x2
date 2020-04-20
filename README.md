@@ -8,14 +8,14 @@ This program gives solutions whice side must be rotated clockwise by 90 degrees.
 
 ## Rubik Structure
 ```
-	  O1 O2					
-	  O3 O4					BACK
+  O1 O2					
+  O3 O4				BACK
 G1 G2 W1 W2 B1 B2		LEFT TOP RIGHT
-G3 G4 W3 W4 B3 B4			FRONT
-	  R1 R2 			   	BOTTOM
-	  R3 R4
-	  Y1 Y2
-	  Y3 Y4
+G3 G4 W3 W4 B3 B4	FRONT
+  R1 R2 			BOTTOM
+  R3 R4
+  Y1 Y2
+  Y3 Y4
 ```
 
 ## Unit Test Cases
