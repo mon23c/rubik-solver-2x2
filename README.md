@@ -42,4 +42,4 @@ Output:
 Solution = [front],
 C = cube(w, w, w, w, y, y, y, y, g, g, g, g, b, b, b, b, r, r, r, r, o, o, o, o) .
 ```
-This means the right side of the rubik should be rotated clockwise by 90 degree.
+This means the front side of the rubik should be rotated clockwise by 90 degree.
