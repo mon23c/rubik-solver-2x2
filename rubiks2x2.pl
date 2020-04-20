@@ -27,7 +27,7 @@ rotate(
 ).
 
 rotate(
-	front,
+	bottom,
 	cube(
 		W1,W2,W3,W4,
 		Y1,Y2,Y3,Y4,
@@ -37,12 +37,32 @@ rotate(
 		O1,O2,O3,O4
 	),
 	cube(
-		W1,W2,G3,G4,
-		B4,B3,Y3,Y4,
-		G1,G2,Y2,Y1,
-		B1,B2,W3,W4,
-		R3,R1,R4,R2,
+		W1,W2,W3,W4,
+		Y2,Y4,Y1,Y3,
+		R3,G2,R4,G4,
+		B1,O1,B3,O2,
+		R1,R2,B4,B2,
+		G3,G1,O3,O4
+	)
+).
+
+rotate(
+	left,
+	cube(
+		W1,W2,W3,W4,
+		Y1,Y2,Y3,Y4,
+		G1,G2,G3,G4,
+		B1,B2,B3,B4,
+		R1,R2,R3,R4,
 		O1,O2,O3,O4
+	),
+	cube(
+		O1,W2,O3,W4,
+		R1,Y2,R3,Y4,
+		G3,G1,G4,G2,
+		B1,B2,B3,B4,
+		W1,R2,W3,R4,
+		Y1,O2,Y3,O4
 	)
 ).
 
@@ -63,5 +83,45 @@ rotate(
 		B3,B1,B4,B2,
 		R1,Y2,R3,Y4,
 		O1,W2,O3,W4
+	)
+).
+
+rotate(
+	front,
+	cube(
+		W1,W2,W3,W4,
+		Y1,Y2,Y3,Y4,
+		G1,G2,G3,G4,
+		B1,B2,B3,B4,
+		R1,R2,R3,R4,
+		O1,O2,O3,O4
+	),
+	cube(
+		W1,W2,G3,G4,
+		B4,B3,Y3,Y4,
+		G1,G2,Y2,Y1,
+		B1,B2,W3,W4,
+		R3,R1,R4,R2,
+		O1,O2,O3,O4
+	)
+).
+
+rotate(
+	back,
+	cube(
+		W1,W2,W3,W4,
+		Y1,Y2,Y3,Y4,
+		G1,G2,G3,G4,
+		B1,B2,B3,B4,
+		R1,R2,R3,R4,
+		O1,O2,O3,O4
+	),
+	cube(
+		G1,G2,W3,W4,
+		Y1,Y2,B2,B1,
+		Y4,Y3,G3,G4,
+		W1,W2,B3,B4,
+		R1,R2,R3,R4,
+		O2,O4,O1,O3
 	)
 ).
