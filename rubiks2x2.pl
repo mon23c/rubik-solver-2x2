@@ -38,7 +38,7 @@ rotate(
 	),
 	cube(
 		W1,W2,G3,G4,
-		B3,B1,Y3,Y4,
+		B4,B3,Y3,Y4,
 		G1,G2,Y2,Y1,
 		B1,B2,W3,W4,
 		R3,R1,R4,R2,
