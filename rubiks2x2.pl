@@ -8,6 +8,11 @@
 % F is back
 % %
 :- include('show.pl').
+:- initialization(show(cube(w, w, w, w, y, y, y, y, g, g, g, g, b, b, b, b, r, r, r, r, o, o, o, o))).
+:- initialization(nl).
+:- initialization(write('Halo selamat datang di game rubiks2x2.')).
+:- initialization(nl).
+:- initialization(write('Ketik "start." (tanpa petik) untuk memulai game.')).
 
 solved(cube(A,A,A,A,B,B,B,B,C,C,C,C,D,D,D,D,E,E,E,E,F,F,F,F)).
 
