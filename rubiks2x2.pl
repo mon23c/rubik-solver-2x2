@@ -15,6 +15,10 @@ solved(cube(A,A,A,A,B,B,B,B,C,C,C,C,D,D,D,D,E,E,E,E,F,F,F,F)).
 solve([], C, C).
 solve([NR | R], C, Res) :- solve(R, Cur, Res), rotate(NR, C, Cur).
 
+% Solver option
+solve_one(Solution,C,Res) :- solve(Solution,C,Res), solved(Res), !.
+solve_many(Solution,C,Res) :- solve(Solution,C,Res), solved(Res).
+
 % %
 % Rotations logic
 % rotate(direction, fromState, toState)
