@@ -15,7 +15,7 @@
 :- initialization(write('Ketik "start." (tanpa petik) untuk memulai game.')).
 
 solved(cube(A,A,A,A,B,B,B,B,C,C,C,C,D,D,D,D,E,E,E,E,F,F,F,F)).
-
+solved(X) :- fail.
 % Main logic
 solve([], C, C).
 solve([NR | R], C, Res) :- solve(R, Cur, Res), rotate(NR, C, Cur).
@@ -147,3 +147,20 @@ rotate(
 		O2,O4,O1,O3  % back
 	)
 ).
+start :- assert(cube(y,o,r,g,b,r,o,o,g,o,r,y,b,b,r,w,b,y,w,g,w,w,g,y)),
+		 inGame.
+
+inGame :-cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4),
+		 show(cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4)),
+		 write('Silakan ketik move(arah_move) (pilih salah satu) untuk menyelesaikan rubik'),
+		 nl.
+finish :- cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4),
+		  solved(cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4)),
+		  show(cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4)),
+		  write('Selamat Anda telah menyelesaikan game'),
+		  !.
+finish :- inGame.
+move(Arah) :- rotate(Arah,cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4),Next), 
+			  retract(cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4)),
+			  assert(Next),
+			  finish.
