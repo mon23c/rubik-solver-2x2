@@ -1,7 +1,7 @@
 # rubik-solver-2x2
 Logic Programming Final Project
-* Adrian Wijaya - 1806205363
-* Michael Susanto - 1806205653
+* **[Adrian Wijaya](https://github.com/mon23c)** - 1806205363
+* **[Michael Susanto](https://github.com/michaelsusanto81)** - 1806205653
 
 ## Rubik Info
 This program gives solutions whice side must be rotated clockwise by 90 degrees.
