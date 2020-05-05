@@ -10,19 +10,22 @@
 :- include('show.pl').
 :- initialization(show(cube(w, w, w, w, y, y, y, y, g, g, g, g, b, b, b, b, r, r, r, r, o, o, o, o))).
 :- initialization(nl).
-:- initialization(write('Halo selamat datang di game rubiks2x2.')).
+:- initialization(write('Welcome to 2x2 Rubiks game!')).
 :- initialization(nl).
-:- initialization(write('Ketik "start." (tanpa petik) untuk memulai game.')).
+:- initialization(write('Type "start." (without quotes) to play the game.')).
+:- initialization(nl).
+:- initialization(nl).
 
 solved(cube(A,A,A,A,B,B,B,B,C,C,C,C,D,D,D,D,E,E,E,E,F,F,F,F)).
-solved(X) :- fail.
+solved(_) :- fail.
+
 % Main logic
-solve([], C, C).
-solve([NR | R], C, Res) :- solve(R, Cur, Res), rotate(NR, C, Cur).
+solve([], Cube, Cube).
+solve([NextRot | Rot], Cube, Res) :- solve(Rot, Cur, Res), rotate(NextRot, Cube, Cur).
 
 % Solver option
-solve_one(Solution,C,Res) :- solve(Solution,C,Res), solved(Res), !.
-solve_many(Solution,C,Res) :- solve(Solution,C,Res), solved(Res).
+solve_one(Solution,Cube,Res) :- solve(Solution,Cube,Res), solved(Res), !.
+solve_many(Solution,Cube,Res) :- solve(Solution,Cube,Res), solved(Res).
 
 % %
 % Rotations logic
@@ -152,15 +155,15 @@ start :- assert(cube(y,o,r,g,b,r,o,o,g,o,r,y,b,b,r,w,b,y,w,g,w,w,g,y)),
 
 inGame :-cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4),
 		 show(cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4)),
-		 write('Silakan ketik move(arah_move) (pilih salah satu) untuk menyelesaikan rubik'),
+		 write('Type move(arah_move) (top/bottom/left/right/front/back) to rotate the rubik.'),
 		 nl.
 finish :- cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4),
 		  solved(cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4)),
 		  show(cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4)),
-		  write('Selamat Anda telah menyelesaikan game'),
+		  write('Congratulations! You solved the rubik!'),
 		  !.
 finish :- inGame.
-move(Arah) :- rotate(Arah,cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4),Next), 
+move(Direction) :- rotate(Direction,cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4),Next), 
 			  retract(cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4)),
 			  assert(Next),
 			  finish.
