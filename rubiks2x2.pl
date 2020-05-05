@@ -1,12 +1,3 @@
-% %
-% Solved state of cube
-% A is top
-% B is bottom
-% C is left
-% D is right
-% E is front
-% F is back
-% %
 :- include('show.pl').
 :- initialization(show(cube(w, w, w, w, y, y, y, y, g, g, g, g, b, b, b, b, r, r, r, r, o, o, o, o))).
 :- initialization(nl).
@@ -16,6 +7,15 @@
 :- initialization(nl).
 :- initialization(nl).
 
+% %
+% Solved state of cube
+% A is top
+% B is bottom
+% C is left
+% D is right
+% E is front
+% F is back
+% %
 solved(cube(A,A,A,A,B,B,B,B,C,C,C,C,D,D,D,D,E,E,E,E,F,F,F,F)).
 solved(_) :- fail.
 
@@ -150,20 +150,30 @@ rotate(
 		O2,O4,O1,O3  % back
 	)
 ).
+
+% some in-game commands
 start :- assert(cube(y,o,r,g,b,r,o,o,g,o,r,y,b,b,r,w,b,y,w,g,w,w,g,y)),
+		 assert(hint(Direction) :-
+		 	solve_one(Direction,cube(y,o,r,g,b,r,o,o,g,o,r,y,b,b,r,w,b,y,w,g,w,w,g,y),_)
+		 ),
 		 inGame.
 
 inGame :-cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4),
 		 show(cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4)),
 		 write('Type move(arah_move) (top/bottom/left/right/front/back) to rotate the rubik.'),
 		 nl.
+
 finish :- cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4),
 		  solved(cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4)),
 		  show(cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4)),
 		  write('Congratulations! You solved the rubik!'),
 		  !.
+
 finish :- inGame.
+
 move(Direction) :- rotate(Direction,cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4),Next), 
 			  retract(cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4)),
+			  retract(hint(_) :- solve_one(_,_,_)),
 			  assert(Next),
+			  assert(hint(NextDir) :- solve_one(NextDir,Next,_)),
 			  finish.
