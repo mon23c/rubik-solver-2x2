@@ -154,7 +154,7 @@ rotate(
 % some in-game commands
 start :- assert(cube(y,o,r,g,b,r,o,o,g,o,r,y,b,b,r,w,b,y,w,g,w,w,g,y)),
 		 assert(hint(Direction) :-
-		 	solve_one(Direction,cube(y,o,r,g,b,r,o,o,g,o,r,y,b,b,r,w,b,y,w,g,w,w,g,y),_)
+		 	solve_one([Direction|_],cube(y,o,r,g,b,r,o,o,g,o,r,y,b,b,r,w,b,y,w,g,w,w,g,y),_)
 		 ),
 		 inGame.
 
@@ -175,5 +175,5 @@ move(Direction) :- rotate(Direction,cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,
 			  retract(cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4)),
 			  retract(hint(_) :- solve_one(_,_,_)),
 			  assert(Next),
-			  assert(hint(NextDir) :- solve_one(NextDir,Next,_)),
+			  assert(hint(NextDir) :- solve_one([NextDir|_],Next,_)),
 			  finish.
