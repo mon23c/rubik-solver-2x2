@@ -6,6 +6,7 @@
 :- initialization(write('Type "start." (without quotes) to play the game.')).
 :- initialization(nl).
 :- initialization(nl).
+:- dynamic cube/24.
 
 % %
 % Solved state of cube
@@ -23,7 +24,15 @@ solved(_) :- fail.
 solve([], Cube, Cube).
 solve([NextRot | Rot], Cube, Res) :- solve(Rot, Cur, Res), rotate(NextRot, Cube, Cur).
 
+
+bfs([[Cube|Path]|_], Answer) :- solved(Cube),!,reverse(Path, Answer).
+bfs([[Cube|Path]|Rest],Answer) :-
+	findall([X|[Rotate|Path]],(rotate(Rotate,Cube,X),\+X,asserta(X)),NewState),
+	append(Rest,NewState,Queue),
+	bfs(Queue,Answer).	
+
 % Solver option
+solve_one_bfs(Solution,Cube) :- bfs([[Cube|[]]],Solution),retractall(cube(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_)).
 solve_one(Solution,Cube,Res) :- solve(Solution,Cube,Res), solved(Res), !.
 solve_many(Solution,Cube,Res) :- solve(Solution,Cube,Res), solved(Res).
 
