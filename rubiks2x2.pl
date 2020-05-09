@@ -160,14 +160,37 @@ rotate(
 	)
 ).
 
+% set difficulty
+difficulty(easy) :- assert(turn(50)),inGame.
+difficulty(medium) :- assert(turn(35)),inGame.
+difficulty(hard) :- assert(turn(25)),inGame.
+
 % some in-game commands
 start :- assert(cube(y,o,r,g,b,r,o,o,g,o,r,y,b,b,r,w,b,y,w,g,w,w,g,y)),
 		 assert(hint(Direction) :-
 		 	solve_one([Direction|_],cube(y,o,r,g,b,r,o,o,g,o,r,y,b,b,r,w,b,y,w,g,w,w,g,y),_)
 		 ),
-		 inGame.
+		 
+		 write('Please type "difficulty(mode)." mode =[easy/medium/hard].'),
+		 nl,
+		 write('The difference in each difficulty is the number of remaining turns available.').
 
-inGame :-cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4),
+inGame :- turn(0),
+		retract(cube(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_)),
+	    retract(hint(_) :- solve_one(_,_,_)),
+	    retract(turn(_)),
+		write('Game Over. No turns left and cube still not ordered.'),
+		nl,
+		write('Type "start." to play again'),
+		nl,
+		write('Type "exit." to stop playing this game.'),
+		!.
+
+inGame :- turn(Remaining),
+		 write(Remaining),
+		 write(' remaining turns left.'),
+		 nl,
+		 cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4),
 		 show(cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4)),
 		 write('Type "move(direction)." direction=[top/bottom/left/right/front/back] to rotate the rubik.'),
 		 nl,
@@ -180,6 +203,7 @@ finish :- cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2
 		  show(cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4)),
 		  retract(cube(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_)),
 		  retract(hint(_) :- solve_one(_,_,_)),
+		  retract(turn(_)),
 		  write('Congratulations! You solved the rubik!'),
 		  nl,
 		  write('Type "start." to play again'),
@@ -191,7 +215,11 @@ finish :- inGame.
 
 exit :- halt(0).
 
-move(Direction) :- rotate(Direction,cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4),Next), 
+move(Direction) :- turn(Remaining),
+			  NewRemaining is Remaining - 1,
+			  retract(turn(_)),
+			  assert(turn(NewRemaining)),
+			  rotate(Direction,cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4),Next), 
 			  retract(cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4)),
 			  retract(hint(_) :- solve_one(_,_,_)),
 			  assert(Next),
