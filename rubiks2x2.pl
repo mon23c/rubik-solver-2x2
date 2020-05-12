@@ -169,11 +169,16 @@ difficulty(hard) :- assert(turn(25)),inGame.
 start :- assert(cube(y,o,r,g,b,r,o,o,g,o,r,y,b,b,r,w,b,y,w,g,w,w,g,y)),
 		 assert(hint(Direction) :-
 		 	solve_one([Direction|_],cube(y,o,r,g,b,r,o,o,g,o,r,y,b,b,r,w,b,y,w,g,w,w,g,y),_)
-		 ),
-		 
-		 write('Please type "difficulty(mode)." mode =[easy/medium/hard].'),
+		 ),		 
+		 write('Please type "difficulty(mode)." mode=[easy/medium/hard].'),
 		 nl,
-		 write('The difference in each difficulty is the number of remaining turns available.').
+		 write('The difference in each difficulty is the number of remaining turns available.'),
+		 nl,
+		 write('Difficulty: easy (50 turns)'),
+		 nl,
+		 write('Difficulty: medium (35 turns)'),
+		 nl,
+		 write('Difficulty: hard (25 turns').
 
 inGame :- turn(0),
 		retract(cube(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_)),
