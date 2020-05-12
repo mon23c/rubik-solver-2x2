@@ -169,7 +169,8 @@ difficulty(hard) :- assert(turn(25)),inGame.
 start :- assert(cube(y,o,r,g,b,r,o,o,g,o,r,y,b,b,r,w,b,y,w,g,w,w,g,y)),
 		 assert(hint(Direction) :-
 		 	solve_one([Direction|_],cube(y,o,r,g,b,r,o,o,g,o,r,y,b,b,r,w,b,y,w,g,w,w,g,y),_)
-		 ),		 
+		 ),
+		 assert(lastMove(none)),		 
 		 write('Please type "difficulty(mode)." mode=[easy/medium/hard].'),
 		 nl,
 		 write('The difference in each difficulty is the number of remaining turns available.'),
@@ -185,6 +186,7 @@ inGame :- turn(0),
 		retract(cube(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_)),
 	    retract(hint(_) :- solve_one(_,_,_)),
 	    retract(turn(_)),
+	    retract(lastMove(_)),
 		write('Game Over. No turns left and cube still not ordered.'),
 		nl,
 		write('Type "start." to play again'),
@@ -211,6 +213,7 @@ finish :- cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2
 		  retract(cube(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_)),
 		  retract(hint(_) :- solve_one(_,_,_)),
 		  retract(turn(_)),
+		  retract(lastMove(_)),
 		  write('Congratulations! You solved the rubik!'),
 		  nl,
 		  write('Type "start." to play again'),
@@ -220,7 +223,23 @@ finish :- cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2
 
 finish :- inGame,!.
 
-exit :- halt(0).
+undo :- lastMove(none),!,fail.
+undo :- turn(Remaining),
+		NewRemaining is Remaining + 1,
+		retract(turn(_)),
+		assert(turn(NewRemaining)),
+		lastMove(Direction),
+		rotate(Direction,cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4),UndoOne),
+		rotate(Direction,UndoOne,UndoTwo),
+		rotate(Direction,UndoTwo,UndoFinal),
+		retract(cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4)),
+		retract(hint(_) :- solve_one(_,_,_)),
+		assert(UndoFinal),
+		assert(hint(NextDir) :- solve_one([NextDir|_],UndoFinal,_)),
+		retract(lastMove(_)),
+		assert(lastMove(none)),
+		finish,
+		!.
 
 move(Direction) :- turn(Remaining),
 			  NewRemaining is Remaining - 1,
@@ -231,5 +250,9 @@ move(Direction) :- turn(Remaining),
 			  retract(hint(_) :- solve_one(_,_,_)),
 			  assert(Next),
 			  assert(hint(NextDir) :- solve_one([NextDir|_],Next,_)),
+			  retract(lastMove(_)),
+			  assert(lastMove(Direction)),
 			  finish,
 			  !.
+
+exit :- halt(0).
