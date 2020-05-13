@@ -43,6 +43,9 @@
 		a {
 			margin: 10px auto;
 		}
+		#hint {
+			display: none;
+		}
 	</style>
 </head>
 <body>	
@@ -92,11 +95,13 @@
 			</li>
 			<li>
 				<a href="#">
-					<button>Hint</button>
-					<!-- <h4>Hint: 
-						<span pwp:use="Hint"></span>
-					</h4> -->
+					<button onclick="showHint()">Hint</button>
 				</a>
+				<div id="hint" pwp:ask="hint(Hint)">
+					<h4>Hint: 
+						<span pwp:use="Hint"></span>
+					</h4>
+				</div>
 			</li>
 		</ul>
 	</div>
@@ -108,5 +113,10 @@
 			<button>Play Again</button>
 		</a>
 	</div>
+	<script>
+		function showHint() {
+			document.getElementById("hint").style.display = "flex";
+		}
+	</script>
 </body>
 </html>
