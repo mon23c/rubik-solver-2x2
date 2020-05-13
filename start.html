@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+
+<html xmlns:pwp="http://www.cs.otago.ac.nz/staffpriv/ok/pwp.pl">
+<head>
+	<title>Rubiks 2x2</title>
+	<style type="text/css">
+		img {
+			width: 200px;
+		}
+		.container {
+			display: flex;
+			flex-flow: column wrap;
+			margin: 30px 20px;
+			justify-content: space-around;
+			align-content: center;
+			align-items: center;
+		}
+		button {
+			width: 100px;
+			height: 40px;
+			font-size: 16px;
+			color: #0a6600;
+			border: 1px solid #0a6600;
+			border-radius: 10%;
+			background-color: white;
+		}
+		button:hover {
+			color: white;
+			background-color: #0a6600;
+			cursor: pointer;
+			transition: 200ms;
+		}
+		ul {
+			list-style: none;
+			display: flex;
+			flex-flow: row wrap;
+			justify-content: space-around;
+		}
+		li {
+			margin: 10px 15px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>Choose Difficulty:</h1>
+		<img src="rubik2x2.jpg"/>
+		<ul>
+			<li>
+				<a href="/easy">
+					<button>Easy</button>
+				</a>
+			</li>
+			<li>
+				<a href="/medium">
+					<button>Medium</button>
+				</a>
+			</li>
+			<li>
+				<a href="/hard">
+					<button>Hard</button>
+				</a>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>

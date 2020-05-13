@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+
+<html xmlns:pwp="http://www.cs.otago.ac.nz/staffpriv/ok/pwp.pl">
+<head>
+	<title>Rubiks 2x2</title>
+	<style type="text/css">
+		img {
+			width: 200px;
+		}
+		.container {
+			display: flex;
+			flex-flow: column wrap;
+			margin: 30px 20px;
+			justify-content: space-around;
+			align-content: center;
+			align-items: center;
+		}
+		button {
+			width: 100px;
+			height: 40px;
+			font-size: 16px;
+			color: #0a6600;
+			border: 1px solid #0a6600;
+			border-radius: 10%;
+			background-color: white;
+		}
+		button:hover {
+			color: white;
+			background-color: #0a6600;
+			cursor: pointer;
+			transition: 200ms;
+		}
+		ul {
+			list-style: none;
+			display: flex;
+			flex-flow: row wrap;
+			justify-content: space-around;
+		}
+		li {
+			margin: 10px 15px;
+		}
+		a {
+			margin: 10px auto;
+		}
+	</style>
+</head>
+<body>	
+	<div class="container" pwp:ask="turn(Remaining)">
+		<h1>Rubiks 2x2</h1>
+		<h2>Turn(s) remaining: 
+			<span pwp:use="Remaining"></span>
+		</h2>
+		<div>CUBE DISPLAY</div>
+		<ul>
+			<li>
+				<a href="/left">
+					<button>Left</button>
+				</a>
+			</li>
+			<li>
+				<a href="/front">
+					<button>Front</button>
+				</a>
+			</li>
+			<li>
+				<a href="/top">
+					<button>Top</button>
+				</a>
+			</li>
+			<li>
+				<a href="/bottom">
+					<button>Bottom</button>
+				</a>
+			</li>
+			<li>
+				<a href="/back">
+					<button>Back</button>
+				</a>
+			</li>
+			<li>
+				<a href="/right">
+					<button>Right</button>
+				</a>
+			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="/undo">
+					<button>Undo</button>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<button>Hint</button>
+					<!-- <h4>Hint: 
+						<span pwp:use="Hint"></span>
+					</h4> -->
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div class="container" pwp:ask="\+turn(Remaining)">
+		<h1>Rubiks 2x2</h1>
+		<h2>Congratulations! You solved the cube!</h2>
+		<div>CUBE DISPLAY</div>
+		<a href="/start">
+			<button>Play Again</button>
+		</a>
+	</div>
+</body>
+</html>

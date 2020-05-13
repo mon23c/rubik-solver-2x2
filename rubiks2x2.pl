@@ -170,16 +170,7 @@ start :- assert(cube(y,o,r,g,b,r,o,o,g,o,r,y,b,b,r,w,b,y,w,g,w,w,g,y)),
 		 assert(hint(Direction) :-
 		 	solve_one([Direction|_],cube(y,o,r,g,b,r,o,o,g,o,r,y,b,b,r,w,b,y,w,g,w,w,g,y),_)
 		 ),
-		 assert(lastMove(none)),		 
-		 write('Please type "difficulty(mode)." mode=[easy/medium/hard].'),
-		 nl,
-		 write('The difference in each difficulty is the number of remaining turns available.'),
-		 nl,
-		 write('Difficulty: easy (50 turns)'),
-		 nl,
-		 write('Difficulty: medium (35 turns)'),
-		 nl,
-		 write('Difficulty: hard (25 turns'),
+		 assert(lastMove(none)),
 		 !.
 
 inGame :- turn(0),
@@ -187,38 +178,18 @@ inGame :- turn(0),
 	    retract(hint(_) :- solve_one(_,_,_)),
 	    retract(turn(_)),
 	    retract(lastMove(_)),
-		write('Game Over. No turns left and cube still not ordered.'),
-		nl,
-		write('Type "start." to play again'),
-		nl,
-		write('Type "exit." to stop playing this game.'),
 		!.
 
-inGame :- turn(Remaining),
-		 write(Remaining),
-		 write(' remaining turns left.'),
-		 nl,
+inGame :- turn(_),
 		 cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4),
-		 show(cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4)),
-		 write('Type "move(direction)." direction=[top/bottom/left/right/front/back] to rotate the rubik.'),
-		 nl,
-		 write('Type "hint(Hint)." for one next move hint.'),
-		 nl,
-		 write('(without quotes)'),
 		 !.
 
 finish :- cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4),
 		  solved(cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4)),
-		  show(cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4)),
 		  retract(cube(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_)),
 		  retract(hint(_) :- solve_one(_,_,_)),
 		  retract(turn(_)),
 		  retract(lastMove(_)),
-		  write('Congratulations! You solved the rubik!'),
-		  nl,
-		  write('Type "start." to play again'),
-		  nl,
-		  write('Type "exit." to stop playing this game.'),
 		  !.
 
 finish :- inGame,!.

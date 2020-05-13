@@ -31,8 +31,10 @@ cd rubik-solver-2x2
 
 * Run the command
 ```cmd
-swipl rubiks2x2.pl
+swipl api.pl
 ```
+
+* Open localhost:5000 in your browser
 
 * Follow the instructions given in the game!
 
