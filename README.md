@@ -4,7 +4,8 @@ Logic Programming Final Project
 * **[Michael Susanto](https://github.com/michaelsusanto81)** - 1806205653
 
 ## Rubik Info
-This program gives solutions whice side must be rotated clockwise by 90 degrees.
+* This program gives solutions whice side must be rotated clockwise by 90 degrees.
+* [Click Here](https://rubiks2x2.herokuapp.com/) to see live demo.
 
 ## Rubik Structure
 ```
