@@ -46,6 +46,41 @@
 		#hint {
 			display: none;
 		}
+		#loader {
+		  position: absolute;
+		  left: 50%;
+		  top: 50%;
+		  z-index: 1;
+		  width: 150px;
+		  height: 150px;
+		  margin: -75px 0 0 -75px;
+		  border: 16px solid #f3f3f3;
+		  border-radius: 50%;
+		  border-top: 16px solid #0a6600;
+		  width: 120px;
+		  height: 120px;
+		  -webkit-animation: spin 2s linear infinite;
+		  animation: spin 2s linear infinite;
+		  display: none;
+		}
+		#loaderText {
+			display: none;
+			justify-content: center;
+			position: absolute;
+			left: 50%;
+			top: 20%;
+			right: 50%;
+			margin-left: -160px;
+			margin-top: 80px;
+		}
+		@-webkit-keyframes spin {
+		  0% { -webkit-transform: rotate(0deg); }
+		  100% { -webkit-transform: rotate(360deg); }
+		}
+		@keyframes spin {
+		  0% { transform: rotate(0deg); }
+		  100% { transform: rotate(360deg); }
+		}
 	</style>
 </head>
 <body>	
@@ -58,32 +93,32 @@
 		<ul>
 			<li>
 				<a href="/left">
-					<button>Left</button>
+					<button onclick="loading()">Left</button>
 				</a>
 			</li>
 			<li>
 				<a href="/front">
-					<button>Front</button>
+					<button onclick="loading()">Front</button>
 				</a>
 			</li>
 			<li>
 				<a href="/top">
-					<button>Top</button>
+					<button onclick="loading()">Top</button>
 				</a>
 			</li>
 			<li>
 				<a href="/bottom">
-					<button>Bottom</button>
+					<button onclick="loading()">Bottom</button>
 				</a>
 			</li>
 			<li>
 				<a href="/back">
-					<button>Back</button>
+					<button onclick="loading()">Back</button>
 				</a>
 			</li>
 			<li>
 				<a href="/right">
-					<button>Right</button>
+					<button onclick="loading()">Right</button>
 				</a>
 			</li>
 		</ul>
@@ -113,9 +148,18 @@
 			<button>Play Again</button>
 		</a>
 	</div>
+	<div id="loaderText">
+		<h2>Preparing next state and hints . . .</h2>
+	</div>
+	<div id="loader"></div>
 	<script>
 		function showHint() {
 			document.getElementById("hint").style.display = "flex";
+		}
+		function loading() {
+			document.getElementsByClassName("container")[0].style.display = "none";
+			document.getElementById("loader").style.display = "flex";
+			document.getElementById("loaderText").style.display = "table";
 		}
 	</script>
 </body>
