@@ -18,6 +18,7 @@
 :- http_handler('/back', doRotate(back), []).
 :- http_handler('/right', doRotate(right), []).
 :- http_handler('/undo', undo, []).
+:- http_handler('/restart', restart, []).
 :- http_handler('/rubik2x2.jpg', http_reply_file('rubik2x2.jpg', []), []).
 
 server(Port) :- 
@@ -41,3 +42,7 @@ doRotate(Direction, Request) :-
 undo(Request) :-
 	undo,
 	reply_pwp_page('game.html', [mime_type('text/html')], Request).
+
+restart(Request) :-
+	restart,
+	reply_pwp_page('index.html', [mime_type('text/html')], Request).

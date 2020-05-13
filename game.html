@@ -31,6 +31,21 @@
 			cursor: pointer;
 			transition: 200ms;
 		}
+		#restart {
+			width: 100px;
+			height: 40px;
+			font-size: 16px;
+			color: red;
+			border: 1px solid red;
+			border-radius: 10%;
+			background-color: white;
+		}
+		#restart:hover {
+			color: white;
+			background-color: red;
+			cursor: pointer;
+			transition: 200ms;
+		}
 		ul {
 			list-style: none;
 			display: flex;
@@ -137,6 +152,11 @@
 						<span pwp:use="Hint"></span>
 					</h4>
 				</div>
+			</li>
+			<li>
+				<a href="/restart">
+					<button id="restart">Restart</button>
+				</a>
 			</li>
 		</ul>
 	</div>

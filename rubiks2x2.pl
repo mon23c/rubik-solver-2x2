@@ -173,6 +173,12 @@ start :- assert(cube(y,o,r,g,b,r,o,o,g,o,r,y,b,b,r,w,b,y,w,g,w,w,g,y)),
 		 assert(lastMove(none)),
 		 !.
 
+restart :- retract(cube(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_)),
+	    retract(hint(_) :- solve_one(_,_,_)),
+	    retract(turn(_)),
+	    retract(lastMove(_)),
+	    !.
+
 inGame :- turn(0),
 		retract(cube(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_)),
 	    retract(hint(_) :- solve_one(_,_,_)),
