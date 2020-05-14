@@ -2,12 +2,188 @@
 <!DOCTYPE html>
 
 <html xmlns:pwp="http://www.cs.otago.ac.nz/staffpriv/ok/pwp.pl">
+
 <head>
 	<title>Rubiks 2x2</title>
 	<style type="text/css">
+
+		#wrap2x2Cube {
+			height: 400px;
+			width: 535px;
+			max-width: 100%;
+			margin: 20px auto;
+			padding: 10px;
+		}
+
+		.face {
+			float: left;
+			width: 132px;
+			height: 132px;
+			border-radius: 5px;
+			background-color: #222;
+		}
+
+		.face-element {
+			width: 60px;
+			height: 60px;
+			float: left;
+			border: 3px solid #222;
+			border-radius: 5px;
+			background-repeat: no-repeat;
+			background-position: -200px 0px;
+			cursor: pointer;
+		}
+
+		#wrap2x2Cube>div.mode2>div>div {
+			background-image: none;
+		}
+
+		#wrap2x2Cube>div>div:hover div:nth-child(1) {
+			background-position: -18px -18px;
+		}
+
+		#wrap2x2Cube>div>div:hover div:nth-child(2) {
+			background-position: -84px -18px;
+		}
+
+		#wrap2x2Cube>div>div:hover div:nth-child(3) {
+			background-position: -18px -84px;
+		}
+
+		#wrap2x2Cube>div>div:hover div:nth-child(4) {
+			background-position: -70px -85px;
+		}
+
+		span#editcolorText {
+			display: inline-block;
+			height: 15px;
+			width: 15px;
+			border: 1px solid #222;
+			border-radius: 3px;
+		}
+
+		.editingColor {
+			display: none;
+			float: right;
+			color: #222;
+			margin: 80px 10px 10px 10px;
+		}
+
+		.mode2 .editingColor {
+			display: block;
+		}
+
+		.clr0 {
+			background-color: #F61109;
+		}
+
+		.clr1 {
+			background-color: #08800C;
+		}
+
+		.clr2 {
+			background-color: #F0F0F0;
+		}
+
+		.clr3 {
+			background-color: #F6FE11;
+		}
+
+		.clr4 {
+			background-color: #0049E6;
+		}
+
+		.clr5 {
+			background-color: #FAAF0D;
+		}
+
+		.clr6 {
+			background: #777;
+			cursor: pointer;
+		}
+
+		.editcolor0 .clr6:hover {
+			background-color: #9D2723 !important;
+		}
+
+		.editcolor1 .clr6:hover {
+			background-color: #205E22 !important;
+		}
+
+		.editcolor2 .clr6:hover {
+			background-color: #D1D1D1 !important;
+		}
+
+		.editcolor3 .clr6:hover {
+			background-color: #CED359 !important;
+		}
+
+		.editcolor4 .clr6:hover {
+			background-color: #183E8F !important;
+		}
+
+		.editcolor5 .clr6:hover {
+			background-color: #C09A46 !important;
+		}
+
+		.faceUp {
+			margin: 0 0 0 132px;
+		}
+
+		.faceLeft {
+			clear: both;
+			margin: 0 0 0 0;
+		}
+
+		.faceFront {
+			margin: 0 0 0 0;
+		}
+
+		.faceRight {
+			margin: 0 0 0 0;
+		}
+
+		.faceBack {
+			margin: 0 0 0 0;
+		}
+
+		.faceDown {
+			clear: both;
+			margin: 0 0 0 132px;
+		}
+
+		@media screen and (max-width: 970px) {
+			#wrap2x2Cube {
+				height: 195px;
+				width: 255px;
+			}
+
+			#wrap2x2Cube>div>div>div {
+				width: 25px;
+				height: 25px;
+			}
+
+			#wrap2x2Cube>div>div {
+				width: 62px;
+				height: 62px;
+			}
+
+
+			.editingColor {
+				margin: 43px 3px 2px 2px;
+			}
+
+			.faceUp,
+			.faceDown {
+				margin-left: 62px;
+			}
+		}
+
+
 		img {
 			width: 200px;
 		}
+
 		.container {
 			display: flex;
 			flex-flow: column wrap;
@@ -16,6 +192,7 @@
 			align-content: center;
 			align-items: center;
 		}
+
 		button {
 			width: 100px;
 			height: 40px;
@@ -25,12 +202,14 @@
 			border-radius: 10%;
 			background-color: white;
 		}
+
 		button:hover {
 			color: white;
 			background-color: #0a6600;
 			cursor: pointer;
 			transition: 200ms;
 		}
+
 		#restart {
 			width: 100px;
 			height: 40px;
@@ -40,44 +219,51 @@
 			border-radius: 10%;
 			background-color: white;
 		}
+
 		#restart:hover {
 			color: white;
 			background-color: red;
 			cursor: pointer;
 			transition: 200ms;
 		}
+
 		ul {
 			list-style: none;
 			display: flex;
 			flex-flow: row wrap;
 			justify-content: space-around;
 		}
+
 		li {
 			margin: 10px 15px;
 		}
+
 		a {
 			margin: 10px auto;
 		}
+
 		#hint {
 			display: none;
 		}
+
 		#loader {
-		  position: absolute;
-		  left: 50%;
-		  top: 50%;
-		  z-index: 1;
-		  width: 150px;
-		  height: 150px;
-		  margin: -75px 0 0 -75px;
-		  border: 16px solid #f3f3f3;
-		  border-radius: 50%;
-		  border-top: 16px solid #0a6600;
-		  width: 120px;
-		  height: 120px;
-		  -webkit-animation: spin 2s linear infinite;
-		  animation: spin 2s linear infinite;
-		  display: none;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			z-index: 1;
+			width: 150px;
+			height: 150px;
+			margin: -75px 0 0 -75px;
+			border: 16px solid #f3f3f3;
+			border-radius: 50%;
+			border-top: 16px solid #0a6600;
+			width: 120px;
+			height: 120px;
+			-webkit-animation: spin 2s linear infinite;
+			animation: spin 2s linear infinite;
+			display: none;
 		}
+
 		#loaderText {
 			display: none;
 			justify-content: center;
@@ -88,23 +274,101 @@
 			margin-left: -160px;
 			margin-top: 80px;
 		}
+
 		@-webkit-keyframes spin {
-		  0% { -webkit-transform: rotate(0deg); }
-		  100% { -webkit-transform: rotate(360deg); }
+			0% {
+				-webkit-transform: rotate(0deg);
+			}
+
+			100% {
+				-webkit-transform: rotate(360deg);
+			}
 		}
+
 		@keyframes spin {
-		  0% { transform: rotate(0deg); }
-		  100% { transform: rotate(360deg); }
+			0% {
+				transform: rotate(0deg);
+			}
+
+			100% {
+				transform: rotate(360deg);
+			}
 		}
 	</style>
 </head>
-<body>	
+
+<body>
 	<div class="container" pwp:ask="turn(Remaining)">
 		<h1>Rubiks 2x2</h1>
-		<h2>Turn(s) remaining: 
+		<h2>Turn(s) remaining:
 			<span pwp:use="Remaining"></span>
 		</h2>
-		<div>CUBE DISPLAY</div>
+
+		<div id="wrap2x2Cube">
+			<div class="editcolor mode">
+				<div class="faceUp face">
+					<div class="clr3 face-element" data-id="12">
+					</div>
+					<div class="clr3 face-element" data-id="13">
+					</div>
+					<div class="clr3 face-element" data-id="14">
+					</div>
+					<div class="clr3 face-element" data-id="15">
+					</div>
+				</div>
+				<div class="faceLeft face">
+					<div class="clr1 face-element" data-id="5">
+					</div>
+					<div class="clr1 face-element" data-id="4">
+					</div>
+					<div class="clr1 face-element" data-id="7">
+					</div>
+					<div class="clr1 face-element" data-id="6">
+					</div>
+				</div>
+				<div class="faceFront face">
+					<div class="clr5 face-element" data-id="20">
+					</div>
+					<div class="clr5 face-element" data-id="21">
+					</div>
+					<div class="clr5 face-element" data-id="22">
+					</div>
+					<div class="clr5 face-element" data-id="23">
+					</div>
+				</div>
+				<div class="faceRight face">
+					<div class="clr4 face-element" data-id="16">
+					</div>
+					<div class="clr4 face-element" data-id="17">
+					</div>
+					<div class="clr4 face-element" data-id="18">
+					</div>
+					<div class="clr4 face-element" data-id="19">
+					</div>
+				</div>
+				<div class="faceBack face">
+					<div class="clr0 face-element" data-id="9">
+					</div>
+					<div class="clr0 face-element" data-id="8">
+					</div>
+					<div class="clr0 face-element" data-id="11">
+					</div>
+					<div class="clr0 face-element" data-id="10">
+					</div>
+				</div>
+				<div class="faceDown face">
+					<div class="clr2 face-element" data-id="2">
+					</div>
+					<div class="clr2 face-element" data-id="3">
+					</div>
+					<div class="clr2 face-element" data-id="0">
+					</div>
+					<div class="clr2 face-element" data-id="1">
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<ul>
 			<li>
 				<a href="/front">
@@ -133,7 +397,7 @@
 					<button onclick="showHint()">Hint</button>
 				</a>
 				<div id="hint" pwp:ask="hint(Hint)">
-					<h4>Hint: 
+					<h4>Hint:
 						<span pwp:use="Hint"></span>
 					</h4>
 				</div>
@@ -168,4 +432,5 @@
 		}
 	</script>
 </body>
+
 </html>
