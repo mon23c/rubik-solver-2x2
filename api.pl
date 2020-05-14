@@ -22,24 +22,24 @@ server(Port) :-
 	http_server(http_dispatch, [port(Port)]).
 
 index(Request) :-
-	reply_pwp_page('index.html', [mime_type('text/html')], Request).
+	reply_pwp_page('templates/index.html', [mime_type('text/html')], Request).
 
 start(Request) :-
 	start,
-	reply_pwp_page('start.html', [mime_type('text/html')], Request).
+	reply_pwp_page('templates/start.html', [mime_type('text/html')], Request).
 
 diff(Level, Request) :-
 	difficulty(Level),
-	reply_pwp_page('game.html', [mime_type('text/html')], Request).
+	reply_pwp_page('templates/game.html', [mime_type('text/html')], Request).
 
 doRotate(Direction, Request) :-
 	move(Direction),
-	reply_pwp_page('game.html', [mime_type('text/html')], Request).
+	reply_pwp_page('templates/game.html', [mime_type('text/html')], Request).
 
 undo(Request) :-
 	undo,
-	reply_pwp_page('game.html', [mime_type('text/html')], Request).
+	reply_pwp_page('templates/game.html', [mime_type('text/html')], Request).
 
 restart(Request) :-
 	restart,
-	reply_pwp_page('index.html', [mime_type('text/html')], Request).
+	reply_pwp_page('templates/index.html', [mime_type('text/html')], Request).
