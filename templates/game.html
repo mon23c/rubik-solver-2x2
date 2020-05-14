@@ -303,67 +303,117 @@
 		<h2>Turn(s) remaining:
 			<span pwp:use="Remaining"></span>
 		</h2>
+		<span style="display: none;" pwp:ask="cube(S0,S1,S2,S3,S4,S5,S6,S7,S8,S9,S10,S11,S12,S13,S14,S15,S16,S17,S18,S19,S20,S21,S22,S23)">
+			<div id="state-0" pwp:use="S0">
+			</div>
+			<div id="state-1" pwp:use="S1">
+			</div>
+			<div id="state-2" pwp:use="S2">
+			</div>
+			<div id="state-3" pwp:use="S3">
+			</div>
+			<div id="state-4" pwp:use="S4">
+			</div>
+			<div id="state-5" pwp:use="S5">
+			</div>
+			<div id="state-6" pwp:use="S6">
+			</div>
+			<div id="state-7" pwp:use="S7">
+			</div>
+			<div id="state-8" pwp:use="S8">
+			</div>
+			<div id="state-9" pwp:use="S9">
+			</div>
+			<div id="state-10" pwp:use="S10">
+			</div>
+			<div id="state-11" pwp:use="S11">
+			</div>
+			<div id="state-12" pwp:use="S12">
+			</div>
+			<div id="state-13" pwp:use="S13">
+			</div>
+			<div id="state-14" pwp:use="S14">
+			</div>
+			<div id="state-15" pwp:use="S15">
+			</div>
+			<div id="state-16" pwp:use="S16">
+			</div>
+			<div id="state-17" pwp:use="S17">
+			</div>
+			<div id="state-18" pwp:use="S18">
+			</div>
+			<div id="state-19" pwp:use="S19">
+			</div>
+			<div id="state-20" pwp:use="S20">
+			</div>
+			<div id="state-21" pwp:use="S21">
+			</div>
+			<div id="state-22" pwp:use="S22">
+			</div>
+			<div id="state-23" pwp:use="S23">
+			</div>
+		</span>
 
 		<div id="wrap2x2Cube">
 			<div class="editcolor mode">
 				<div class="faceUp face">
-					<div class="clr3 face-element" data-id="12">
+					<div class="face-element" id="12">
 					</div>
-					<div class="clr3 face-element" data-id="13">
+					<div class="face-element" id="13">
 					</div>
-					<div class="clr3 face-element" data-id="14">
+					<div class="face-element" id="14">
 					</div>
-					<div class="clr3 face-element" data-id="15">
+					<div class="face-element" id="15">
 					</div>
 				</div>
 				<div class="faceLeft face">
-					<div class="clr1 face-element" data-id="5">
+					<div class="face-element" id="5">
 					</div>
-					<div class="clr1 face-element" data-id="4">
+					<div class="face-element" id="4">
 					</div>
-					<div class="clr1 face-element" data-id="7">
+					<div class="face-element" id="7">
 					</div>
-					<div class="clr1 face-element" data-id="6">
+					<div class="face-element" id="6">
 					</div>
 				</div>
 				<div class="faceFront face">
-					<div class="clr5 face-element" data-id="20">
+					<div class="face-element" id="20">
 					</div>
-					<div class="clr5 face-element" data-id="21">
+					<div class="face-element" id="21">
 					</div>
-					<div class="clr5 face-element" data-id="22">
+					<div class="face-element" id="22">
 					</div>
-					<div class="clr5 face-element" data-id="23">
+					<div class="face-element" id="23">
 					</div>
 				</div>
 				<div class="faceRight face">
-					<div class="clr4 face-element" data-id="16">
+					<div class="face-element" id="16">
 					</div>
-					<div class="clr4 face-element" data-id="17">
+					<div class="face-element" id="17">
 					</div>
-					<div class="clr4 face-element" data-id="18">
+					<div class="face-element" id="18">
 					</div>
-					<div class="clr4 face-element" data-id="19">
+					<div class="face-element" id="19">
 					</div>
 				</div>
 				<div class="faceBack face">
-					<div class="clr0 face-element" data-id="9">
+					<div class="face-element" id="9">
 					</div>
-					<div class="clr0 face-element" data-id="8">
+					<div class="face-element" id="8">
 					</div>
-					<div class="clr0 face-element" data-id="11">
+					<div class="face-element" id="11">
 					</div>
-					<div class="clr0 face-element" data-id="10">
+					<div class="face-element" id="10">
 					</div>
 				</div>
 				<div class="faceDown face">
-					<div class="clr2 face-element" data-id="2">
+					<div class="face-element" id="2">
 					</div>
-					<div class="clr2 face-element" data-id="3">
+					<div class="face-element" id="3">
 					</div>
-					<div class="clr2 face-element" data-id="0">
+					<div class="face-element" id="0">
 					</div>
-					<div class="clr2 face-element" data-id="1">
+					<div class="face-element" id="1">
 					</div>
 				</div>
 			</div>
@@ -431,9 +481,26 @@
 			document.getElementById("loaderText").style.display = "table";
 		}
 
-		function paintCube() {
-			
+		function initCube() {
+			for(var i =0;i !== 24;i++) {
+				var element = document.getElementById("state-"+i);
+				var changed = document.getElementById(i);
+				var color = " clr5";
+				if(element.innerHTML === 'w')
+					color = " clr0";
+				else if (element.innerHTML === 'y')
+					color = " clr1";
+				else if (element.innerHTML === 'g')
+					color = " clr2";
+				else if (element.innerHTML === 'o')
+					color = " clr3";
+				else if (element.innerHTML === 'b')
+					color = " clr4";
+				changed.className += color;
+			}
 		}
+
+		window.onload=initCube();
 
 	</script>
 </body>
