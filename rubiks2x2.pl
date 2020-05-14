@@ -61,46 +61,6 @@ rotate(
 ).
 
 rotate(
-	bottom,
-	cube(
-		W1,W2,W3,W4, % top
-		Y1,Y2,Y3,Y4, % bottom
-		G1,G2,G3,G4, % left
-		B1,B2,B3,B4, % right
-		R1,R2,R3,R4, % front
-		O1,O2,O3,O4  % back
-	),
-	cube(
-		W1,W2,W3,W4, % top
-		Y2,Y4,Y1,Y3, % bottom
-		R3,G2,R4,G4, % left
-		B1,O1,B3,O2, % right
-		R1,R2,B4,B2, % front
-		G3,G1,O3,O4  % back
-	)
-).
-
-rotate(
-	left,
-	cube(
-		W1,W2,W3,W4, % top
-		Y1,Y2,Y3,Y4, % bottom
-		G1,G2,G3,G4, % left
-		B1,B2,B3,B4, % right
-		R1,R2,R3,R4, % front
-		O1,O2,O3,O4  % back
-	),
-	cube(
-		O1,W2,O3,W4, % top
-		R1,Y2,R3,Y4, % bottom
-		G3,G1,G4,G2, % left
-		B1,B2,B3,B4, % right
-		W1,R2,W3,R4, % front
-		Y1,O2,Y3,O4  % back
-	)
-).
-
-rotate(
 	right,
 	cube(
 		W1,W2,W3,W4, % top
@@ -137,26 +97,6 @@ rotate(
 		B1,B2,W3,W4, % right
 		R3,R1,R4,R2, % front
 		O1,O2,O3,O4  % back
-	)
-).
-
-rotate(
-	back,
-	cube(
-		W1,W2,W3,W4, % top
-		Y1,Y2,Y3,Y4, % bottom
-		G1,G2,G3,G4, % left
-		B1,B2,B3,B4, % right
-		R1,R2,R3,R4, % front
-		O1,O2,O3,O4  % back
-	),
-	cube(
-		G1,G2,W3,W4, % top
-		Y1,Y2,B2,B1, % bottom
-		Y4,Y3,G3,G4, % left
-		W1,W2,B3,B4, % right
-		R1,R2,R3,R4, % front
-		O2,O4,O1,O3  % back
 	)
 ).
 
