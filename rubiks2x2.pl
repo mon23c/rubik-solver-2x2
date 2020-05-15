@@ -3,7 +3,14 @@
 :- initialization(nl).
 :- initialization(write('Welcome to 2x2 Rubiks game!')).
 :- initialization(nl).
-:- initialization(write('Type "start." (without quotes) to play the game.')).
+:- initialization(write('Made by:')).
+:- initialization(nl).
+:- initialization(write('Adrian Wijaya - 1806205363 - mon23c (github)')).
+:- initialization(nl).
+:- initialization(write('Michael Susanto - 1806205653 - michaelsusanto81 (github)')).
+:- initialization(nl).
+:- initialization(nl).
+:- initialization(write('Server is running on port 5000 . . .')).
 :- initialization(nl).
 :- initialization(nl).
 :- dynamic cube/24.
@@ -22,19 +29,8 @@ solved(_) :- fail.
 
 % Main logic
 solve([], Cube, Cube).
-solve([NextRot | Rot], Cube, Res) :- solve(Rot, Cur, Res), rotate(NextRot, Cube, Cur).
-
-
-bfs([[Cube|Path]|_], Answer) :- solved(Cube),!,reverse(Path, Answer).
-bfs([[Cube|Path]|Rest],Answer) :-
-	findall([X|[Rotate|Path]],(rotate(Rotate,Cube,X),\+X,asserta(X)),NewState),
-	append(Rest,NewState,Queue),
-	bfs(Queue,Answer).	
-
-% Solver option
-solve_one_bfs(Solution,Cube) :- bfs([[Cube|[]]],Solution),retractall(cube(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_)).
+solve([NextRot | Rot], Cube, Res) :- solve(Rot, Cur, Res), rotate(NextRot, Cube, Cur).	
 solve_one(Solution,Cube,Res) :- solve(Solution,Cube,Res), solved(Res), !.
-solve_many(Solution,Cube,Res) :- solve(Solution,Cube,Res), solved(Res).
 
 % %
 % Rotations logic
@@ -100,12 +96,12 @@ rotate(
 	)
 ).
 
-% set difficulty
+% Set difficulty
 difficulty(easy) :- assert(turn(50)),inGame.
 difficulty(medium) :- assert(turn(35)),inGame.
 difficulty(hard) :- assert(turn(25)),inGame.
 
-% some in-game commands
+% Some in-game commands
 start :- assert(cube(y,o,r,g,b,r,o,o,g,o,r,y,b,b,r,w,b,y,w,g,w,w,g,y)),
 		 assert(hint(Direction) :-
 		 	solve_one([Direction|_],cube(y,o,r,g,b,r,o,o,g,o,r,y,b,b,r,w,b,y,w,g,w,w,g,y),_)
