@@ -98,11 +98,11 @@ rotate(
 ).
 
 % Set difficulty
-difficulty(easy) :- turn(_), retractall(turn(_)), fail.
+difficulty(easy) :- turn(_), retractall(turn(_)), start, fail.
 difficulty(easy) :- assert(turn(50)),inGame.
-difficulty(medium) :- turn(_), retractall(turn(_)), fail.
+difficulty(medium) :- turn(_), retractall(turn(_)), start, fail.
 difficulty(medium) :- assert(turn(35)),inGame.
-difficulty(hard) :- turn(_), retractall(turn(_)), fail.
+difficulty(hard) :- turn(_), retractall(turn(_)), start, fail.
 difficulty(hard) :- assert(turn(25)),inGame.
 
 % Some in-game commands
