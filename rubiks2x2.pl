@@ -136,7 +136,7 @@ finish :- cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2
 
 finish :- inGame,!.
 
-undo :- lastMove(none),!,fail.
+undo :- lastMove(none),!.
 undo :- turn(Remaining),
 		NewRemaining is Remaining + 1,
 		retract(turn(_)),
