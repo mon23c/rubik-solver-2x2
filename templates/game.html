@@ -6,12 +6,11 @@
 <head>
 	<title>Rubiks 2x2</title>
 	<style type="text/css">
-
 		#wrap2x2Cube {
 			height: 350px;
 			width: 535px;
 			max-width: 100%;
-			margin: 20px auto;
+			margin: 10px auto;
 			padding: 10px;
 		}
 
@@ -187,7 +186,7 @@
 		.container {
 			display: flex;
 			flex-flow: column wrap;
-			margin: 30px 20px;
+			margin: 15px 20px;
 			justify-content: space-around;
 			align-content: center;
 			align-items: center;
@@ -210,7 +209,7 @@
 			transition: 200ms;
 		}
 
-		#restart {
+		#restartBtn {
 			width: 100px;
 			height: 40px;
 			font-size: 16px;
@@ -220,7 +219,7 @@
 			background-color: white;
 		}
 
-		#restart:hover {
+		#restartBtn:hover {
 			color: white;
 			background-color: red;
 			cursor: pointer;
@@ -244,6 +243,7 @@
 
 		#hint {
 			display: none;
+			margin-top: -20px;
 		}
 
 		#loader {
@@ -294,13 +294,37 @@
 				transform: rotate(360deg);
 			}
 		}
+
+		.buttons {
+			display: flex;
+			flex-flow: row wrap;
+			justify-content: space-around;
+			margin-top: 20px;
+		}
+
+		#miscBtn {
+			width: 100px;
+			height: 40px;
+			font-size: 16px;
+			color: blue;
+			border: 1px solid blue;
+			border-radius: 10%;
+			background-color: white;
+		}
+
+		#miscBtn:hover {
+			color: white;
+			background-color: blue;
+			cursor: pointer;
+			transition: 200ms;
+		}
 	</style>
 </head>
 
 <body>
 	<div class="container" pwp:ask="turn(Remaining)">
 		<h1>Rubiks 2x2</h1>
-		<h2>Turn(s) remaining:
+		<h2 style="margin-top: -10px;">Turn(s) remaining:
 			<span pwp:use="Remaining"></span>
 		</h2>
 		<span style="display: none;" pwp:ask="cube(S0,S1,S2,S3,S4,S5,S6,S7,S8,S9,S10,S11,S12,S13,S14,S15,S16,S17,S18,S19,S20,S21,S22,S23)">
@@ -419,51 +443,51 @@
 			</div>
 		</div>
 
-		<ul>
-			<li>
-				<a href="/front">
-					<button onclick="loading()">Front</button>
-				</a>
-			</li>
-			<li>
-				<a href="/top">
-					<button onclick="loading()">Top</button>
-				</a>
-			</li>
-			<li>
-				<a href="/right">
-					<button onclick="loading()">Right</button>
-				</a>
-			</li>
-		</ul>
-		<ul>
-			<li>
-				<a href="/undo">
-					<button onclick="loading()">Undo</button>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<button onclick="showHint()">Hint</button>
-				</a>
-				<div id="hint" pwp:ask="hint(Hint)">
-					<h4>Hint:
-						<span pwp:use="Hint"></span>
-					</h4>
-				</div>
-			</li>
-			<li>
-				<a href="/restart">
-					<button id="restart">Restart</button>
-				</a>
-			</li>
-		</ul>
+		<div class="buttons">
+			<ul>
+				<li>
+					<a href="/front">
+						<button onclick="loading()">Front</button>
+					</a>
+				</li>
+				<li>
+					<a href="/top">
+						<button onclick="loading()">Top</button>
+					</a>
+				</li>
+				<li>
+					<a href="/right">
+						<button onclick="loading()">Right</button>
+					</a>
+				</li>
+			</ul>
+			<ul>
+				<li>
+					<a href="/undo">
+						<button id="miscBtn" onclick="loading()">Undo</button>
+					</a>
+				</li>
+				<li>
+					<button id="miscBtn" onclick="showHint()">Hint</button>				
+					<div id="hint" pwp:ask="hint(Hint)">
+						<h4>Hint:
+							<span pwp:use="Hint"></span>
+						</h4>
+					</div>
+				</li>
+				<li>
+					<a href="/restart">
+						<button id="restartBtn">Restart</button>
+					</a>
+				</li>
+			</ul>
+		</div>
 	</div>
 	<div class="container" pwp:ask="\+turn(Remaining)">
 		<h1>Rubiks 2x2</h1>
 		<h2>Congratulations! You solved the cube!</h2>
 		<div>CUBE DISPLAY</div>
-		<a href="/start">
+		<a href="/">
 			<button>Play Again</button>
 		</a>
 	</div>
