@@ -14,6 +14,7 @@
 :- initialization(nl).
 :- initialization(nl).
 :- dynamic cube/24.
+:- dynamic turn/1.
 
 % %
 % Solved state of cube
@@ -97,11 +98,20 @@ rotate(
 ).
 
 % Set difficulty
+difficulty(easy) :- turn(_), retractall(turn(_)), fail.
 difficulty(easy) :- assert(turn(50)),inGame.
+difficulty(medium) :- turn(_), retractall(turn(_)), fail.
 difficulty(medium) :- assert(turn(35)),inGame.
+difficulty(hard) :- turn(_), retractall(turn(_)), fail.
 difficulty(hard) :- assert(turn(25)),inGame.
 
 % Some in-game commands
+start :- cube(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_),
+		 retractall(cube(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_)),
+		 retractall(hint(_)),
+		 retractall(turn(_)),
+		 retractall(lastMove(_)),
+		 fail.
 start :- assert(cube(y,o,r,g,b,r,o,o,g,o,r,y,b,b,r,w,b,y,w,g,w,w,g,y)),
 		 assert(hint(Direction) :-
 		 	solve_one([Direction|_],cube(y,o,r,g,b,r,o,o,g,o,r,y,b,b,r,w,b,y,w,g,w,w,g,y),_)
