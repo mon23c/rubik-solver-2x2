@@ -125,7 +125,7 @@
 			background-color: #C09A46 !important;
 		}
 
-		.faceUp {
+		.faceTop {
 			margin: 0 0 0 132px;
 		}
 
@@ -146,7 +146,7 @@
 			margin: 0 0 0 0;
 		}
 
-		.faceDown {
+		.faceBottom {
 			clear: both;
 			margin: 0 0 0 132px;
 		}
@@ -380,37 +380,27 @@
 
 		<div id="wrap2x2Cube">
 			<div class="editcolor mode">
-				<div class="faceUp face">
-					<div class="face-element" id="12">
+				<div class="faceTop face">
+					<div class="face-element" id="0">
 					</div>
-					<div class="face-element" id="13">
+					<div class="face-element" id="1">
 					</div>
-					<div class="face-element" id="14">
+					<div class="face-element" id="2">
 					</div>
-					<div class="face-element" id="15">
+					<div class="face-element" id="3">
 					</div>
 				</div>
 				<div class="faceLeft face">
-					<div class="face-element" id="5">
+					<div class="face-element" id="9">
 					</div>
-					<div class="face-element" id="4">
+					<div class="face-element" id="11">
 					</div>
-					<div class="face-element" id="7">
+					<div class="face-element" id="8">
 					</div>
-					<div class="face-element" id="6">
+					<div class="face-element" id="10">
 					</div>
 				</div>
 				<div class="faceFront face">
-					<div class="face-element" id="20">
-					</div>
-					<div class="face-element" id="21">
-					</div>
-					<div class="face-element" id="22">
-					</div>
-					<div class="face-element" id="23">
-					</div>
-				</div>
-				<div class="faceRight face">
 					<div class="face-element" id="16">
 					</div>
 					<div class="face-element" id="17">
@@ -420,24 +410,34 @@
 					<div class="face-element" id="19">
 					</div>
 				</div>
-				<div class="faceBack face">
-					<div class="face-element" id="9">
+				<div class="faceRight face">
+					<div class="face-element" id="14">
 					</div>
-					<div class="face-element" id="8">
+					<div class="face-element" id="12">
 					</div>
-					<div class="face-element" id="11">
+					<div class="face-element" id="15">
 					</div>
-					<div class="face-element" id="10">
+					<div class="face-element" id="13">
 					</div>
 				</div>
-				<div class="faceDown face">
-					<div class="face-element" id="2">
+				<div class="faceBack face">
+					<div class="face-element" id="23">
 					</div>
-					<div class="face-element" id="3">
+					<div class="face-element" id="22">
 					</div>
-					<div class="face-element" id="0">
+					<div class="face-element" id="21">
 					</div>
-					<div class="face-element" id="1">
+					<div class="face-element" id="20">
+					</div>
+				</div>
+				<div class="faceBottom face">
+					<div class="face-element" id="4">
+					</div>
+					<div class="face-element" id="5">
+					</div>
+					<div class="face-element" id="6">
+					</div>
+					<div class="face-element" id="7">
 					</div>
 				</div>
 			</div>
@@ -483,7 +483,9 @@
 			</ul>
 		</div>
 	</div>
-	<div class="container" pwp:ask="\+turn(Remaining)">
+	<div class="container" pwp:ask="\+<turn>
+		<Remaining></Remaining>
+	</turn>">
 		<h1>Rubiks 2x2</h1>
 		<h2>Congratulations! You solved the cube!</h2>
 		<a href="/">
