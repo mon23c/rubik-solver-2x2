@@ -15,9 +15,11 @@
 :- initialization(nl).
 :- dynamic cube/24.
 :- dynamic turn/1.
+:- dynamic gameOver/0.
 
 % %
 % Solved state of cube
+% Description: iff every face of the cube is already the same color
 % A is top
 % B is bottom
 % C is left
@@ -28,14 +30,23 @@
 solved(cube(A,A,A,A,B,B,B,B,C,C,C,C,D,D,D,D,E,E,E,E,F,F,F,F)).
 solved(_) :- fail.
 
-% Main logic
+% %
+% Main logic of solver
+% Description:
+% 		- There is no need to give solution list of moves of there are no any moves left to solve the 'Cube' 
+% 		- The rubik 'Cube' is searching list of moves '[NextRot|Rot]' to solve the 'Cube' state to the 'Res' state
+% 		  if there is a list of next moves ('Rot') of the 'Cur' state to the 'Res' state
+% 		  then do rotate from 'Cube' state to 'Cur' state with 'NextRot'
+% 		- There is only one 'Solution' (list moves) from the 'Cube' state to the 'Res' state
+% 		  if there is a list of 'Solution' from 'Cube' to 'Res', and 'Res' is the solved state of cube
+% %
 solve([], Cube, Cube).
 solve([NextRot | Rot], Cube, Res) :- solve(Rot, Cur, Res), rotate(NextRot, Cube, Cur).	
 solve_one(Solution,Cube,Res) :- solve(Solution,Cube,Res), solved(Res), !.
 
 % %
 % Rotations logic
-% rotate(direction, fromState, toState)
+% Description: rotate(direction, fromState, toState)
 % %
 rotate(
 	top,
@@ -97,16 +108,31 @@ rotate(
 	)
 ).
 
+% %
 % Set difficulty
-difficulty(easy) :- turn(_), retractall(turn(_)), start, fail.			% '/easy' frontend exception handler
-difficulty(easy) :- assert(turn(50)),inGame.
-difficulty(medium) :- turn(_), retractall(turn(_)), start, fail.		% '/medium' frontend exception handler
-difficulty(medium) :- assert(turn(35)),inGame.
-difficulty(hard) :- turn(_), retractall(turn(_)), start, fail.			% '/hard' frontend exception handler
-difficulty(hard) :- assert(turn(25)),inGame.
+% Description: set 50/35/25 turns then start inGame
+% %
+difficulty(easy) :- turn(_), retractall(turn(_)), start, fail.					% '/easy' frontend exception handler
+difficulty(easy) :- assert(turn(50)), inGame.
+difficulty(medium) :- turn(_), retractall(turn(_)), start, fail.				% '/medium' frontend exception handler
+difficulty(medium) :- assert(turn(35)), inGame.
+difficulty(hard) :- turn(_), retractall(turn(_)), start, fail.					% '/hard' frontend exception handler
+difficulty(hard) :- assert(turn(25)), inGame.
 
+% %
 % Some in-game commands
-start :- cube(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_),			% '/start' frontend exception handler
+% Description:
+% 		- start: preparing cube and hint before start
+% 		- restart: restart the game
+% 		- inGame: if there is no turns left, gameOver and do cleaning. Otherwise do nothing
+% 		- finish: if the cube is solved, then do cleaning. Otherwise is still inGame
+% 		- undo: update hint, cube, lastMove, turn
+% 				undo is do rotate 3 times of lastMove
+% 		- move: update hint, cube, lastMove, turn. Then do rotate
+% 		- exit: terminates server
+% %
+start :- retractall(gameOver),
+		 cube(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_),					% '/start' frontend exception handler
 		 retractall(cube(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_)),
 		 retractall(hint(_)),
 		 retractall(turn(_)),
@@ -122,6 +148,7 @@ start :- assert(cube(y,o,r,g,b,r,o,o,g,o,r,y,b,b,r,w,b,y,w,g,w,w,g,y)),
 restart :- start.
 
 inGame :- turn(0),
+		assert(gameOver),
 		retract(cube(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_)),
 	    retract(hint(_) :- solve_one(_,_,_)),
 	    retract(turn(_)),
