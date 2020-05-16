@@ -98,15 +98,15 @@ rotate(
 ).
 
 % Set difficulty
-difficulty(easy) :- turn(_), retractall(turn(_)), start, fail.
+difficulty(easy) :- turn(_), retractall(turn(_)), start, fail.			% '/easy' frontend exception handler
 difficulty(easy) :- assert(turn(50)),inGame.
-difficulty(medium) :- turn(_), retractall(turn(_)), start, fail.
+difficulty(medium) :- turn(_), retractall(turn(_)), start, fail.		% '/medium' frontend exception handler
 difficulty(medium) :- assert(turn(35)),inGame.
-difficulty(hard) :- turn(_), retractall(turn(_)), start, fail.
+difficulty(hard) :- turn(_), retractall(turn(_)), start, fail.			% '/hard' frontend exception handler
 difficulty(hard) :- assert(turn(25)),inGame.
 
 % Some in-game commands
-start :- cube(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_),
+start :- cube(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_),			% '/start' frontend exception handler
 		 retractall(cube(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_)),
 		 retractall(hint(_)),
 		 retractall(turn(_)),
@@ -142,7 +142,7 @@ finish :- cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2
 
 finish :- inGame,!.
 
-undo :- lastMove(none),!.
+undo :- lastMove(none),!.												% '/undo' frontend exception handler
 undo :- turn(Remaining),
 		NewRemaining is Remaining + 1,
 		retract(turn(_)),
@@ -160,7 +160,7 @@ undo :- turn(Remaining),
 		finish,
 		!.
 
-move(_) :- \+cube(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_),!.
+move(_) :- \+cube(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_),!.	% '/front', '/top', '/right' frontend exception handler
 move(Direction) :- turn(Remaining),
 			  NewRemaining is Remaining - 1,
 			  retract(turn(_)),

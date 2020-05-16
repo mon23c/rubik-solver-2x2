@@ -18,28 +18,35 @@
 :- http_handler('/restart', restart, []).
 :- http_handler('/rubik2x2.jpg', http_reply_file('rubik2x2.jpg', []), []).
 
+% Main program server
 server(Port) :- 
 	http_server(http_dispatch, [port(Port)]).
 
+% '/'
 index(Request) :-
 	reply_pwp_page('templates/index.html', [mime_type('text/html')], Request).
 
+% '/start'
 start(Request) :-
 	start,
 	reply_pwp_page('templates/start.html', [mime_type('text/html')], Request).
 
+% '/easy', '/medium', '/hard'
 diff(Level, Request) :-
 	difficulty(Level),
 	reply_pwp_page('templates/game.html', [mime_type('text/html')], Request).
 
+% '/front', '/top', '/right'
 doRotate(Direction, Request) :-
 	move(Direction),
 	reply_pwp_page('templates/game.html', [mime_type('text/html')], Request).
 
+% '/undo'
 undo(Request) :-
 	undo,
 	reply_pwp_page('templates/game.html', [mime_type('text/html')], Request).
 
+% '/restart'
 restart(Request) :-
 	restart,
 	reply_pwp_page('templates/index.html', [mime_type('text/html')], Request).

@@ -3,9 +3,27 @@ Logic Programming Final Project
 * **[Adrian Wijaya](https://github.com/mon23c)** - 1806205363
 * **[Michael Susanto](https://github.com/michaelsusanto81)** - 1806205653
 
-## Rubik Info
-* This program gives solutions whice side must be rotated clockwise by 90 degrees.
+## Description
+* This app lets you play 2x2 rubik interactively on web browser.
+* There are 3 difficulties (based on how many turns you have to solve the rubik):
+	* Easy (50 turns)
+	* Medium (35 turns)
+	* Hard (25 turns)
+* There are only 3 moves of the rubik:
+	* Top (rotate top side of rubik by 90 degree clockwise)
+	* Front (rotate front side of rubik by 90 degree clockwise)
+	* Right (rotate right side of rubik by 90 degree clockwise)
+* If you're stuck in the game, you can hit **Hint** button.
+* If you're clicking the wrong move, you can hit **Undo** button.
 * [Click Here](https://rubiks2x2.herokuapp.com/) to see live demo.
+
+## Tools used
+* SWI Prolog
+	* The main program in the backend uses SWI Prolog as main language.
+* SWI Prolog http library
+	* This http library of SWI Prolog is used for routing/mapping/handling requests coming from the frontend.
+* Prolog Web Pages (PWP)
+	* PWP is used for rendering dynamic contents of frontend, along with HTML, CSS, and JavaScript to give best experience of users.
 
 ## Rubik Structure
 ```
@@ -70,7 +88,7 @@ C = cube(w, w, w, w, y, y, y, y, g, g, g, g, b, b, b, b, r, r, r, r, o, o, o, o)
 ```
 This means the front side of the rubik should be rotated clockwise by 90 degree.
 
-## Complex Test Cases
+## Complex Test Case
 * Sample randomized rubik's state
 ```cmd
 ?- solve(Solution, cube(y,o,r,g,b,r,o,o,g,o,r,y,b,b,r,w,b,y,w,g,w,w,g,y), C), solved(C).
