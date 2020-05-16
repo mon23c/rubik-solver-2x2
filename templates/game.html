@@ -483,9 +483,16 @@
 			</ul>
 		</div>
 	</div>
-	<div class="container" pwp:ask="\+turn(Remaining)">
+	<div class="container" pwp:ask="\+turn(Remaining), \+gameOver">
 		<h1>Rubiks 2x2</h1>
 		<h2>Congratulations! You solved the cube!</h2>
+		<a href="/">
+			<button>Play Again</button>
+		</a>
+	</div>
+	<div class="container" pwp:ask="gameOver">
+		<h1>Rubiks 2x2</h1>
+		<h2>Game Over!</h2>
 		<a href="/">
 			<button>Play Again</button>
 		</a>

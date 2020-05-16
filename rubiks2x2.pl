@@ -15,6 +15,7 @@
 :- initialization(nl).
 :- dynamic cube/24.
 :- dynamic turn/1.
+:- dynamic gameOver/0.
 
 % %
 % Solved state of cube
@@ -123,14 +124,15 @@ difficulty(hard) :- assert(turn(25)), inGame.
 % Description:
 % 		- start: preparing cube and hint before start
 % 		- restart: restart the game
-% 		- inGame: if there is no turns left, do cleaning. Otherwise do nothing
+% 		- inGame: if there is no turns left, gameOver and do cleaning. Otherwise do nothing
 % 		- finish: if the cube is solved, then do cleaning. Otherwise is still inGame
 % 		- undo: update hint, cube, lastMove, turn
 % 				undo is do rotate 3 times of lastMove
 % 		- move: update hint, cube, lastMove, turn. Then do rotate
 % 		- exit: terminates server
 % %
-start :- cube(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_),					% '/start' frontend exception handler
+start :- retractall(gameOver),
+		 cube(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_),					% '/start' frontend exception handler
 		 retractall(cube(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_)),
 		 retractall(hint(_)),
 		 retractall(turn(_)),
@@ -146,6 +148,7 @@ start :- assert(cube(y,o,r,g,b,r,o,o,g,o,r,y,b,b,r,w,b,y,w,g,w,w,g,y)),
 restart :- start.
 
 inGame :- turn(0),
+		assert(gameOver),
 		retract(cube(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_)),
 	    retract(hint(_) :- solve_one(_,_,_)),
 	    retract(turn(_)),
