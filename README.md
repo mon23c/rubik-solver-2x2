@@ -6,9 +6,9 @@ Logic Programming Final Project
 ## Description
 * This app lets you play 2x2 rubik interactively on web browser.
 * There are 3 difficulties (based on how many turns you have to solve the rubik):
-	* Easy (50 turns)
-	* Medium (35 turns)
-	* Hard (25 turns)
+	* Easy (100 turns)
+	* Medium (75 turns)
+	* Hard (50 turns)
 * There are only 3 moves of the rubik:
 	* Top (rotate top side of rubik by 90 degree clockwise)
 	* Front (rotate front side of rubik by 90 degree clockwise)
@@ -24,15 +24,13 @@ Logic Programming Final Project
 	* This http library of SWI Prolog is used for routing/mapping/handling requests coming from the frontend.
 * Prolog Web Pages (PWP)
 	* PWP is used for rendering dynamic contents of frontend, along with HTML, CSS, and JavaScript to give best experience of users.
-
+	
 ## Rubik Structure
 ```
-      O1 O2					
-      O3 O4                 BACK
-G1 G2 W1 W2 B1 B2      LEFT TOP RIGHT
-G3 G4 W3 W4 B3 B4           FRONT
-      R1 R2                 BOTTOM
-      R3 R4
+      W1 W2			 TOP
+      W3 W4		   LEFT FRONT RIGHT BACK
+G1 G2 R1 R2 B1 B2 O1 O2         BOTTOM
+G3 G4 R3 R4 B3 B4 O3 O4
       Y1 Y2
       Y3 Y4
 ```
