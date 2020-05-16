@@ -18,6 +18,7 @@
 
 % %
 % Solved state of cube
+% Description : iff every face of the cube is already the same color
 % A is top
 % B is bottom
 % C is left
@@ -28,14 +29,23 @@
 solved(cube(A,A,A,A,B,B,B,B,C,C,C,C,D,D,D,D,E,E,E,E,F,F,F,F)).
 solved(_) :- fail.
 
-% Main logic
+% %
+% Main logic of solver
+% Description :
+% 		- There is no need to give solution list of moves of there are no any moves left to solve the 'Cube' 
+% 		- The rubik 'Cube' is searching list of moves '[NextRot|Rot]' to solve the 'Cube' state to the 'Res' state
+% 		  if there is a list of next moves ('Rot') of the 'Cur' state to the 'Res' state
+% 		  then do rotate from 'Cube' state to 'Cur' state with 'NextRot'
+% 		- There is only one 'Solution' (list moves) from the 'Cube' state to the 'Res' state
+% 		  if there is a list of 'Solution' from 'Cube' to 'Res', and 'Res' is the solved state of cube
+% %
 solve([], Cube, Cube).
 solve([NextRot | Rot], Cube, Res) :- solve(Rot, Cur, Res), rotate(NextRot, Cube, Cur).	
 solve_one(Solution,Cube,Res) :- solve(Solution,Cube,Res), solved(Res), !.
 
 % %
 % Rotations logic
-% rotate(direction, fromState, toState)
+% Description : rotate(direction, fromState, toState)
 % %
 rotate(
 	top,
@@ -98,30 +108,30 @@ rotate(
 ).
 
 % Set difficulty
-difficulty(easy) :- turn(_), retractall(turn(_)), start, fail.			% '/easy' frontend exception handler
-difficulty(easy) :- assert(turn(50)),inGame.
-difficulty(medium) :- turn(_), retractall(turn(_)), start, fail.		% '/medium' frontend exception handler
-difficulty(medium) :- assert(turn(35)),inGame.
-difficulty(hard) :- turn(_), retractall(turn(_)), start, fail.			% '/hard' frontend exception handler
-difficulty(hard) :- assert(turn(25)),inGame.
+difficulty(easy) :- turn(_), retractall(turn(_)), start, fail.					% '/easy' frontend exception handler
+difficulty(easy) :- assert(turn(50)),inGame.									% set 50 turns then start inGame
+difficulty(medium) :- turn(_), retractall(turn(_)), start, fail.				% '/medium' frontend exception handler
+difficulty(medium) :- assert(turn(35)),inGame.									% set 35 turns then start inGame
+difficulty(hard) :- turn(_), retractall(turn(_)), start, fail.					% '/hard' frontend exception handler
+difficulty(hard) :- assert(turn(25)),inGame.									% set 25 turns then start inGame
 
 % Some in-game commands
-start :- cube(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_),			% '/start' frontend exception handler
+start :- cube(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_),					% '/start' frontend exception handler
 		 retractall(cube(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_)),
 		 retractall(hint(_)),
 		 retractall(turn(_)),
 		 retractall(lastMove(_)),
 		 fail.
-start :- assert(cube(y,o,r,g,b,r,o,o,g,o,r,y,b,b,r,w,b,y,w,g,w,w,g,y)),
+start :- assert(cube(y,o,r,g,b,r,o,o,g,o,r,y,b,b,r,w,b,y,w,g,w,w,g,y)),			% preparing cube and hint before start
 		 assert(hint(Direction) :-
 		 	solve_one([Direction|_],cube(y,o,r,g,b,r,o,o,g,o,r,y,b,b,r,w,b,y,w,g,w,w,g,y),_)
 		 ),
 		 assert(lastMove(none)),
 		 !.
 
-restart :- start.
+restart :- start.																% restart the game
 
-inGame :- turn(0),
+inGame :- turn(0),																% if there is no turns left, do cleaning
 		retract(cube(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_)),
 	    retract(hint(_) :- solve_one(_,_,_)),
 	    retract(turn(_)),
@@ -132,19 +142,19 @@ inGame :- turn(_),
 		 cube(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_),
 		 !.
 
-finish :- cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4),
-		  solved(cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4)),
-		  retract(cube(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_)),
+finish :- cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4),			% the game is finish
+		  solved(cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4)),	% if the cube is solved
+		  retract(cube(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_)),							% then do cleaning
 		  retract(hint(_) :- solve_one(_,_,_)),
 		  retract(turn(_)),
 		  retract(lastMove(_)),
 		  !.
 
-finish :- inGame,!.
+finish :- inGame,!.																% otherwise, it is still inGame
 
 undo :- lastMove(none),!.												% '/undo' frontend exception handler
-undo :- turn(Remaining),
-		NewRemaining is Remaining + 1,
+undo :- turn(Remaining),												% update the hint, lastMove, cube state, and turn
+		NewRemaining is Remaining + 1,									% undo is do rotate 3 times of lastMove
 		retract(turn(_)),
 		assert(turn(NewRemaining)),
 		lastMove(Direction),
@@ -161,8 +171,8 @@ undo :- turn(Remaining),
 		!.
 
 move(_) :- \+cube(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_),!.	% '/front', '/top', '/right' frontend exception handler
-move(Direction) :- turn(Remaining),
-			  NewRemaining is Remaining - 1,
+move(Direction) :- turn(Remaining),										% update the hint, lastMove, cube state, and turn
+			  NewRemaining is Remaining - 1,							% do rotate
 			  retract(turn(_)),
 			  assert(turn(NewRemaining)),
 			  rotate(Direction,cube(W1,W2,W3,W4,Y1,Y2,Y3,Y4,G1,G2,G3,G4,B1,B2,B3,B4,R1,R2,R3,R4,O1,O2,O3,O4),Next), 
@@ -175,4 +185,4 @@ move(Direction) :- turn(Remaining),
 			  finish,
 			  !.
 
-exit :- halt(0).
+exit :- halt(0).														% exit server
