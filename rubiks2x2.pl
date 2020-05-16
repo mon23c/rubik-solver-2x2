@@ -110,14 +110,14 @@ rotate(
 
 % %
 % Set difficulty
-% Description: set 50/35/25 turns then start inGame
+% Description: set 100/75/50 turns then start inGame
 % %
 difficulty(easy) :- turn(_), retractall(turn(_)), start, fail.					% '/easy' frontend exception handler
-difficulty(easy) :- assert(turn(50)), inGame.
+difficulty(easy) :- assert(turn(100)), inGame.
 difficulty(medium) :- turn(_), retractall(turn(_)), start, fail.				% '/medium' frontend exception handler
-difficulty(medium) :- assert(turn(35)), inGame.
+difficulty(medium) :- assert(turn(75)), inGame.
 difficulty(hard) :- turn(_), retractall(turn(_)), start, fail.					% '/hard' frontend exception handler
-difficulty(hard) :- assert(turn(25)), inGame.
+difficulty(hard) :- assert(turn(50)), inGame.
 
 % %
 % Some in-game commands
